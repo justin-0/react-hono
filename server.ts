@@ -2,24 +2,21 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { expenses } from "./routes/expenses";
 
-function App() {
-  // Hono constructor
-  const app = new Hono();
-  // Middleware
-  app.use("*", logger());
-  // Routes
-  app.route("/api/expenses", expenses);
-
+export function createHono() {
+  // Create hono instance with a base path of '/api'
+  const app = new Hono().basePath("/api");
+  // Use logger middleware
+  app.use(logger());
+  // app (/api) use expenses route which has basepath of (/expenses) = /api/expenses
+  app.route("/", expenses);
+  // Return hono
   return app;
 }
 
-function startServer(app: Hono) {
-  Bun.serve({ fetch: app.fetch });
+// Take app as argument
+export function createServer(app: Hono) {
+  // Return bun server which uses hono fetch to deal with req/res cycle
+  return Bun.serve({
+    fetch: app.fetch,
+  });
 }
-
-function HonoServer() {
-  const app = App();
-  startServer(app);
-}
-
-export default HonoServer;

@@ -1,3 +1,4 @@
-import HonoServer from "./server";
+import { createHono, createServer } from "./server";
 
-HonoServer();
+const app = createHono();
+const server = createServer(app);

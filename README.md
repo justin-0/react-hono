@@ -1,15 +1,30 @@
-# react-hono
+# Server
 
-To install dependencies:
+[x] Server file, hono instance and create server
+[x] base api path
+[x] expenses route - get expenses, create expense, update expense, delete expense
+TODO: zod validator for post
+TODO: create zod schema, create type from schema with infer
+TODO: Hono RPC for typesafety
+TODO: Static serve frontend build files - root and fallback
+TODO: Create middleware to set a user var
 
-```bash
-bun install
-```
+## After hardcoded values work as expected when querying server
 
-To run:
+TODO: Install ORM of choice
+TODO: Select database service
+TODO: Create tables schema, consider an index if using postgres
 
-```bash
-bun run index.ts
-```
+- Database returning an array but it will only be a single value? Chain then and select zero index from result value
 
-This project was created using `bun init` in bun v1.1.17. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+# Client
+
+TODO: Form to create expense - shadcn? tanstack form?
+TODO: Table to show all expenses, user can filter expenses
+TODO: Tanstack Router for file system routing - authenticated routes
+TODO: Tanstack query to interact with api
+TODO: Link up RPC with client
+TODO: Vite proxy to avoid cors issues
+TODO: Tailwind css for styling
+TODO: Bar charts for analytics
+TODO: React query as state manager or zustand?
