@@ -1,13 +1,13 @@
 # Server
 
-[X] - Server file, hono instance and create server
-[X] - base api path
-[X] - expenses route - get expenses, create expense, update expense, delete expense
-TODO: - zod validator for post
-TODO: create zod schema, create type from schema with infer
-TODO: Hono RPC for typesafety
-TODO: Static serve frontend build files - root and fallback
-TODO: Create middleware to set a user var
+- [x] Server file, hono instance and create server
+- [x] - base api path
+- [x] expenses route - get expenses, create expense, update expense, delete expense
+- [x] TODO: - zod validator for post
+- [x] TODO: create zod schema, create type from schema with infer
+      TODO: Hono RPC for typesafety
+      TODO: Static serve frontend build files - root and fallback
+      TODO: Create middleware to set a user var
 
 ## After hardcoded values work as expected when querying server
 
