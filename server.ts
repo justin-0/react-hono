@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { expenses } from "./routes/expenses";
+import { auth } from "./routes/auth";
 
 export function createHono() {
   // Create hono instance with a base path of '/api'
@@ -8,7 +9,7 @@ export function createHono() {
   // Use logger middleware
   app.use(logger());
   // app (/api) use expenses route which has basepath of (/expenses) = /api/expenses
-  app.route("/", expenses);
+  app.route("/", expenses).route("/", auth);
   // Return hono
   return app;
 }
