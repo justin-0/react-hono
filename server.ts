@@ -5,12 +5,13 @@ import { authRoutes } from "./routes/auth";
 
 export function createHono() {
   // Create hono instance with a base path of '/api'
-  const app = new Hono().basePath("/api");
-  // Use logger middleware
-  app.use(logger());
-  // app (/api) use expenses route which has basepath of (/expenses) = /api/expenses
-  app.route("/", expensesRoutes).route("/", authRoutes);
-  // Return hono
+  const app = new Hono();
+  app.use("*", logger());
+  const apiRoutes = app
+    .basePath("/api")
+    .route("/expenses", expensesRoutes)
+    .route("/auth", authRoutes);
+
   return app;
 }
 
