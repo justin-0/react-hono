@@ -2,7 +2,7 @@ import { Hono } from "hono";
 // Create base path for expenses route
 export const expenses = new Hono().basePath("/expenses");
 
-// Append http verbs to expense
+// Chain http verbs to expense
 expenses
   // api/expenses - GET - return expenses
   .get("/", (c) => {
