@@ -19,9 +19,9 @@
 
 # Client
 
-- [] TODO: Form to create expense - shadcn? tanstack form?
+- [x] Form to create expense - shadcn? tanstack form?
 - [] TODO: Table to show all expenses, user can filter expenses
-- [] TODO: Tanstack Router for file system routing - authenticated routes
+- [] TODO: Tanstack Router authenticated routes
 - [] TODO: Tanstack query to interact with api
 - [] TODO: Link up RPC with client
 - [] TODO: Vite proxy to avoid cors issues
