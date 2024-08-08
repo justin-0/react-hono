@@ -8,6 +8,7 @@ const schema = z.object({
 });
 
 type ExpenseSchema = z.infer<typeof schema>;
+
 // Create base path for expenses route
 export const expensesRoutes = new Hono()
   .get("/", (c) => {
@@ -19,7 +20,7 @@ export const expensesRoutes = new Hono()
       if (!result.success) {
         return c.json(result.error.flatten());
       }
-      return c.json({ result });
+      return c.json({ result }, 201);
     })
   )
   .delete("/", (c) => c.json({ message: "expense deleted" }));
