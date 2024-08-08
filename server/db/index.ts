@@ -1,8 +1,4 @@
-import { createHono, createServer } from "./server";
 import { PrismaClient } from "@prisma/client";
-
-const app = createHono();
-const server = createServer(app);
 
 const prisma = new PrismaClient();
 

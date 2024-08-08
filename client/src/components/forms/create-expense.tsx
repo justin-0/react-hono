@@ -42,6 +42,7 @@ export const CreateExpenseForm = () => {
         amount: +values.amount,
       },
     });
+
     const json = await res.json();
     console.log(json);
   }
