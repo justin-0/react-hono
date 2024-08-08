@@ -5,7 +5,7 @@
 - [x] expenses route - get expenses, create expense, update expense, delete expense
 - [x] zod validator for post
 - [x] create zod schema, create type from schema with infer
-- [] TODO: Hono RPC for typesafety
+- [x] Hono RPC for typesafety
 - [] TODO: Static serve frontend build files - root and fallback
 - [] TODO: Create middleware to set a user var
 
