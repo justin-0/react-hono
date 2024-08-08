@@ -11,9 +11,9 @@
 
 ## After hardcoded values work as expected when querying server
 
-- [] TODO: Install ORM of choice
-- [] TODO: Select database service
-- [] TODO: Create tables schema, consider an index if using postgres
+- [x] Install ORM of choice
+- [x] Select database service
+- [x] Create tables schema, consider an index if using postgres
 
 - Database returning an array but it will only be a single value? Chain then and select zero index from result value
 
@@ -27,4 +27,5 @@
 - [x] Vite proxy to avoid cors issues
 - [x] Tailwind css for styling
 - [] TODO: Bar charts for analytics
-- [] TODO: React query as state manager or zustand?
+- [] TODO: React query for server state
+- [] TODO: Zustand for client state

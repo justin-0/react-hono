@@ -1,13 +1,14 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
+import { PrismaClient } from "@prisma/client";
 
 export const schema = z.object({
   title: z.string(),
   amount: z.number(),
 });
 
-type ExpenseSchema = z.infer<typeof schema>;
+const prisma = new PrismaClient();
 
 // Create base path for expenses route
 export const expensesRoutes = new Hono()
@@ -16,11 +17,21 @@ export const expensesRoutes = new Hono()
   })
   .post(
     "/",
-    zValidator("json", schema, (result, c) => {
+    zValidator("json", schema, async (result, c) => {
       if (!result.success) {
         return c.json(result.error.flatten());
       }
-      return c.json({ result }, 201);
+      const data = result.data;
+      // TODO: GET user_Id - likely from c.req with middleware setting a user object
+      const newPost = await prisma.expense.create({
+        data: {
+          title: data.title,
+          amount: data.amount,
+          userId: "",
+        },
+      });
+
+      return c.json({ newPost }, 201);
     })
   )
   .delete("/", (c) => c.json({ message: "expense deleted" }));
