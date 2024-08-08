@@ -23,8 +23,8 @@
 - [] TODO: Table to show all expenses, user can filter expenses
 - [] TODO: Tanstack Router authenticated routes
 - [] TODO: Tanstack query to interact with api
-- [] TODO: Link up RPC with client
-- [] TODO: Vite proxy to avoid cors issues
-- [] TODO: Tailwind css for styling
+- [x] Link up RPC with client
+- [x] Vite proxy to avoid cors issues
+- [x] Tailwind css for styling
 - [] TODO: Bar charts for analytics
 - [] TODO: React query as state manager or zustand?
