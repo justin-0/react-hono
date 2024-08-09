@@ -1,14 +1,12 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 
 export const schema = z.object({
   title: z.string(),
   amount: z.number(),
 });
-
-const prisma = new PrismaClient();
 
 // Create base path for expenses route
 export const expensesRoutes = new Hono()
