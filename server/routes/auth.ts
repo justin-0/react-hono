@@ -15,7 +15,7 @@ export const authRoutes = new Hono()
     "/sign-up",
     zValidator("json", registerSchema, async (result, c) => {
       if (!result.success) {
-        return c.json(result.error.flatten());
+        return c.json(result.error.flatten(), 400);
       }
 
       const data = result.data;

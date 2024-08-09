@@ -36,6 +36,9 @@ export async function createNewUser(
         username,
         password_hash: hashedPassword,
       },
+      select: {
+        password_hash: false,
+      },
     });
 
     return c.json({ success: true, newUser }, 201);
