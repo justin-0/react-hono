@@ -19,7 +19,7 @@
 
 ## Server - Auth
 
-- [] Sign up, hash password (bcryptjs) and save user to mongodb
+- [x] Sign up, hash password (bcryptjs) and save user to mongodb
 - [] Use JWT for sessions set on cookies
 - [] Update middleware to check for jwt cookie and set user variable once token has been verified to get \_id, as well as during sign-in
 

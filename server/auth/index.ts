@@ -1,10 +1,15 @@
 import type { Context } from "hono";
 import bcryptjs from "bcryptjs";
 import { prisma } from "../db";
+import { registerSchema } from "../routes/auth";
+import { z } from "zod";
 
-export async function createNewUser(c: Context) {
+export async function createNewUser(
+  c: Context,
+  result: z.infer<typeof registerSchema>
+) {
   try {
-    const { username, password } = await c.req.json();
+    const { username, password } = result;
 
     if (!username || !password) {
       return c.json(
