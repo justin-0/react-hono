@@ -35,3 +35,5 @@
 - [] TODO: Bar charts for analytics
 - [] TODO: React query for server state
 - [] TODO: Zustand for client state
+- [] TODO: Sign-up & Sign-in Forms - state to handle root view?
+- [] TODO: Routes -> Create / Transactions / Analytics / Sign-out (Protect these routes)
