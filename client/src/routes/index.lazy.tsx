@@ -35,7 +35,10 @@ function Index() {
           </CardHeader>
           <CardContent>
             {view === "sign-up" ? <SignUpForm /> : <SignInForm />}
-            <CardDescription className="mt-4" onClick={toggleView}>
+            <CardDescription
+              className="mt-4 cursor-pointer inline-block"
+              onClick={toggleView}
+            >
               {view === "sign-up"
                 ? "Already got an account?"
                 : "Create your account"}
