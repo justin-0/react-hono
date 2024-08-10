@@ -1,7 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { z } from "zod";
 import { prisma } from "../db";
+import { validateAndSetUser } from "../middleware";
 
 export const schema = z.object({
   title: z.string(),
@@ -9,8 +10,13 @@ export const schema = z.object({
 });
 
 // Create base path for expenses route
-export const expensesRoutes = new Hono()
-  .get("/", (c) => {
+const expensesRoutes = new Hono();
+
+expensesRoutes.use("*", validateAndSetUser);
+
+expensesRoutes
+  .get("/", (c: Context) => {
+    console.log("USER_OBJECT", c.get("user"));
     return c.json({ message: "expense" });
   })
   .post(
@@ -33,3 +39,5 @@ export const expensesRoutes = new Hono()
     })
   )
   .delete("/", (c) => c.json({ message: "expense deleted" }));
+
+export { expensesRoutes };

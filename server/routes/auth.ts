@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { setUser } from "../middleware";
+
 import { authenticateUser, createNewUser } from "../auth";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";

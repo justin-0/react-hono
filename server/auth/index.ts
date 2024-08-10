@@ -121,7 +121,7 @@ async function createSessionToken(id: string) {
   return sessionJWT;
 }
 
-async function verifySessionToken(jwt: string) {
+export async function verifySessionToken(jwt: string) {
   const secret = new TextEncoder().encode(process.env.SECRET);
 
   const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret);
