@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { setUser } from "../middleware";
-import { createNewUser } from "../auth";
+import { authenticateUser, createNewUser } from "../auth";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 
@@ -10,7 +10,19 @@ export const registerSchema = z.object({
 });
 
 export const authRoutes = new Hono()
-  .post("/sign-in", setUser, (c) => c.json({ message: "logged in" }))
+  .post(
+    "/sign-in",
+    zValidator("json", registerSchema, async (result, c) => {
+      if (!result.success) {
+        return c.json(result.error.flatten(), 400);
+      }
+
+      const data = result.data;
+
+      const authenticated = await authenticateUser(c, data);
+      return authenticated;
+    })
+  )
   .post(
     "/sign-up",
     zValidator("json", registerSchema, async (result, c) => {
