@@ -8,6 +8,7 @@ export async function createNewUser(
   c: Context,
   result: z.infer<typeof registerSchema>
 ) {
+  console.log("CREATE-USER");
   try {
     const { username, password } = result;
 
@@ -38,6 +39,8 @@ export async function createNewUser(
       },
       select: {
         password_hash: false,
+        username: true,
+        id: true,
       },
     });
 

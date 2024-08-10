@@ -21,15 +21,15 @@ export const expensesRoutes = new Hono()
       }
       const data = result.data;
       // TODO: GET user_Id - likely from c.req with middleware setting a user object
-      const newPost = await prisma.expense.create({
-        data: {
-          title: data.title,
-          amount: data.amount,
-          userId: "",
-        },
-      });
+      // const newPost = await prisma.expense.create({
+      //   data: {
+      //     title: data.title,
+      //     amount: data.amount,
+      //     userId: "",
+      //   },
+      // });
 
-      return c.json({ newPost }, 201);
+      return c.json(201);
     })
   )
   .delete("/", (c) => c.json({ message: "expense deleted" }));
