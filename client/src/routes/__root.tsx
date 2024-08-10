@@ -1,6 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { Landmark } from "lucide-react";
+import { Landmark, LogOutIcon } from "lucide-react";
 
 export const Route = createRootRoute({
   component: () => (
@@ -18,6 +19,10 @@ export const Route = createRootRoute({
         <Link to="/analytics" className="[&.active]:font-bold">
           Analytics
         </Link>
+        {/* TODO: POST METHOD - signout endpoint to destroy session */}
+        <Button size="icon">
+          <LogOutIcon className="h-4 w-4" />
+        </Button>
       </div>
       <hr />
       <Outlet />

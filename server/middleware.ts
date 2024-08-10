@@ -5,7 +5,7 @@ import type { Context, Next } from "hono";
 import { setCookie, getCookie } from "hono/cookie";
 import { verifySessionToken } from "./auth";
 
-type UserDetails = Omit<User, "password_hash">;
+export type UserDetails = Omit<User, "password_hash">;
 
 type Env = {
   Variables: {
