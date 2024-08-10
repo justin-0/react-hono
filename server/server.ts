@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { apiRoutes } from "./routes";
-import { validateAndSetUser } from "./middleware";
 
 export function createHono() {
   const app = new Hono();

@@ -18,7 +18,7 @@ type Payload = {
   iat: number;
   exp: number;
 };
-
+// MIDDLEWARE - CHECKS SESSION IS VALID AND THEN SETS A USER ENV FOR ACCESS. NO TOKEN RESULTS IN A UNAUTHORISED ERROR
 export const validateAndSetUser = createMiddleware<Env>(
   async (c: Context, next: Next) => {
     try {

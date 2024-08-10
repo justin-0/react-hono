@@ -7,13 +7,17 @@ import { z } from "zod";
 import * as jose from "jose";
 import "dotenv/config";
 
+// CREATE NEW USER TO INSERT INTO DB
 export async function createNewUser(
+  // HONO CONTEXT
   c: Context,
+  // RESULT SCHEMA INFERRED WITH ZOD
   result: z.infer<typeof registerSchema>
 ) {
   try {
+    // GET USERNAME AND PASSWORD FROM ZVALIDATOR RESULT
     const { username, password } = result;
-
+    // NO USERNAME OR PASSWORD RETURN ERROR
     if (!username || !password) {
       return c.json(
         {
@@ -22,18 +26,19 @@ export async function createNewUser(
         400
       );
     }
-
+    // CHECK IF USER EXISTS
     const userExists = await prisma.user.findUnique({
       where: {
         username,
       },
     });
-
+    // TELLS NEW USER THAT WE HAVE AN ACCOUNT WITH THOSE CREDENTIALS
     if (userExists) {
       return c.json({ message: "User registered with credentials" }, 400);
     }
-
+    // HASHPASSWORD
     const hashedPassword = await hashingPassword(password);
+    // CREATE NEW USER BUT OMIT PASSWORD
     const newUser = await prisma.user.create({
       data: {
         username,
@@ -45,20 +50,21 @@ export async function createNewUser(
         id: true,
       },
     });
-
+    // RETURN SUCCESS
     return c.json({ success: true, newUser }, 201);
   } catch (error) {
     console.log(error);
   }
 }
 
+// ROLE - FIND USER, CHECK PASSWORD AND CREATE SESSION
 export async function authenticateUser(
   c: Context,
   result: z.infer<typeof registerSchema>
 ) {
   try {
     const { username, password } = result;
-
+    // FIND USER
     const user = await prisma.user.findUnique({
       where: {
         username,
@@ -68,15 +74,15 @@ export async function authenticateUser(
     if (!user) {
       return c.json({ message: "Invalid credentials" }, 401);
     }
-
+    // DO PASSWORD AND HASHED PASSWORD MATCH?
     const isMatching = bcryptjs.compare(password, user.password_hash);
 
     if (!isMatching) {
       return c.json({ message: "Invalid credentials" }, 401);
     }
-
+    // CREATE SESSION AND SIGN WITH USER ID
     const session = await createSessionToken(user.id);
-
+    // SET COOKIE
     setCookie(c, "session", session, {
       httpOnly: true,
       sameSite: "Lax",
@@ -91,6 +97,7 @@ export async function authenticateUser(
   }
 }
 
+// BCRYPTJS HASH PASSWORD HELPER
 async function hashingPassword(password: string): Promise<string> {
   const saltRounds = 10;
   try {
@@ -105,6 +112,7 @@ async function hashingPassword(password: string): Promise<string> {
   }
 }
 
+// CREATE TOKEN WITH JOSE LIBRARY
 async function createSessionToken(id: string) {
   const payload = {
     id,
@@ -120,11 +128,11 @@ async function createSessionToken(id: string) {
 
   return sessionJWT;
 }
-
+// VERIFY OUR TOKEN
 export async function verifySessionToken(jwt: string) {
   const secret = new TextEncoder().encode(process.env.SECRET);
 
-  const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret);
+  const { payload } = await jose.jwtVerify(jwt, secret);
 
   return payload;
 }

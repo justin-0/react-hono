@@ -11,7 +11,7 @@ export const schema = z.object({
 
 // Create base path for expenses route
 const expensesRoutes = new Hono();
-
+// EXPENSE ROUTE TO USE VALIDATE MIDDLEWARE - THIS ROUTE IS PROTECTED
 expensesRoutes.use("*", validateAndSetUser);
 
 expensesRoutes
