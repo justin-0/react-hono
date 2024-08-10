@@ -1,11 +1,15 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { apiRoutes } from "./routes";
+import { serveStatic } from "hono/bun";
 
 export function createHono() {
   const app = new Hono();
   app.use("*", logger());
   app.route("/", apiRoutes);
+
+  app.get("*", serveStatic({ root: "./client/dist" }));
+  app.get("*", serveStatic({ path: "./client/dist/index.html" }));
 
   return app;
 }

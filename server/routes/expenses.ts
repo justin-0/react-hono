@@ -10,11 +10,8 @@ export const schema = z.object({
 });
 
 // Create base path for expenses route
-const expensesRoutes = new Hono();
-// EXPENSE ROUTE TO USE VALIDATE MIDDLEWARE - THIS ROUTE IS PROTECTED
-expensesRoutes.use("*", validateAndSetUser);
-
-expensesRoutes
+export const expensesRoutes = new Hono()
+  .use("*", validateAndSetUser)
   .get("/", (c: Context) => {
     console.log("USER_OBJECT", c.get("user"));
     return c.json({ message: "expense" });
@@ -40,4 +37,4 @@ expensesRoutes
   )
   .delete("/", (c) => c.json({ message: "expense deleted" }));
 
-export { expensesRoutes };
+// export { expensesRoutes };

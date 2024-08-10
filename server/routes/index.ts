@@ -1,4 +1,3 @@
-import { validateAndSetUser } from "../middleware";
 import { authRoutes } from "./auth";
 import { expensesRoutes } from "./expenses";
 import { Hono } from "hono";
