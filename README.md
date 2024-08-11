@@ -8,6 +8,7 @@
 - [x] Hono RPC for typesafety
 - [x] Static serve frontend build files - root and fallback
 - [x] Create middleware to set a user var
+- [] create endpoint to check we have a user
 
 ## After hardcoded values work as expected when querying server
 
@@ -34,6 +35,13 @@
 - [x] Tailwind css for styling
 - [] TODO: Bar charts for analytics
 - [] TODO: React query for server state
-- [] TODO: Zustand for client state
-- [] TODO: Sign-up & Sign-in Forms - state to handle root view?
-- [] TODO: Routes -> Create / Transactions / Analytics / Sign-out (Protect these routes)
+- [x] Zustand for client state
+- [x] Sign-up & Sign-in Forms - state to handle root view?
+- [x] Routes -> Create / Transactions / Analytics / Sign-out (Protect these routes)
+- [] api folder/file to use for rpc
+- [] create queries file
+- [] sign up and sign in post end points
+- [] create transaction endpoint
+- [] rq - ensurequerydata, setquerydata, queryoptions
+- [] zustand - create a check auth method that hits new creatly endpoint
+- [] auth method should be used with \_authenticated beforeload function and then can redirect user to homepage

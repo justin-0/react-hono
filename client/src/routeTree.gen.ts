@@ -13,35 +13,56 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
 
 // Create Virtual Routes
 
-const TransactionsLazyImport = createFileRoute('/transactions')()
-const CreateLazyImport = createFileRoute('/create')()
-const AnalyticsLazyImport = createFileRoute('/analytics')()
 const IndexLazyImport = createFileRoute('/')()
+const AuthenticatedTransactionsLazyImport = createFileRoute(
+  '/_authenticated/transactions',
+)()
+const AuthenticatedCreateLazyImport = createFileRoute(
+  '/_authenticated/create',
+)()
+const AuthenticatedAnalyticsLazyImport = createFileRoute(
+  '/_authenticated/analytics',
+)()
 
 // Create/Update Routes
 
-const TransactionsLazyRoute = TransactionsLazyImport.update({
-  path: '/transactions',
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/transactions.lazy').then((d) => d.Route))
-
-const CreateLazyRoute = CreateLazyImport.update({
-  path: '/create',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/create.lazy').then((d) => d.Route))
-
-const AnalyticsLazyRoute = AnalyticsLazyImport.update({
-  path: '/analytics',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/analytics.lazy').then((d) => d.Route))
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AuthenticatedTransactionsLazyRoute =
+  AuthenticatedTransactionsLazyImport.update({
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/transactions.lazy').then((d) => d.Route),
+  )
+
+const AuthenticatedCreateLazyRoute = AuthenticatedCreateLazyImport.update({
+  path: '/create',
+  getParentRoute: () => AuthenticatedRoute,
+} as any).lazy(() =>
+  import('./routes/_authenticated/create.lazy').then((d) => d.Route),
+)
+
+const AuthenticatedAnalyticsLazyRoute = AuthenticatedAnalyticsLazyImport.update(
+  {
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/_authenticated/analytics.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -54,26 +75,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/analytics': {
-      id: '/analytics'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
       path: '/analytics'
       fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedAnalyticsLazyImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/create': {
-      id: '/create'
+    '/_authenticated/create': {
+      id: '/_authenticated/create'
       path: '/create'
       fullPath: '/create'
-      preLoaderRoute: typeof CreateLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedCreateLazyImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/transactions': {
-      id: '/transactions'
+    '/_authenticated/transactions': {
+      id: '/_authenticated/transactions'
       path: '/transactions'
       fullPath: '/transactions'
-      preLoaderRoute: typeof TransactionsLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedTransactionsLazyImport
+      parentRoute: typeof AuthenticatedImport
     }
   }
 }
@@ -82,9 +110,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  AnalyticsLazyRoute,
-  CreateLazyRoute,
-  TransactionsLazyRoute,
+  AuthenticatedRoute: AuthenticatedRoute.addChildren({
+    AuthenticatedAnalyticsLazyRoute,
+    AuthenticatedCreateLazyRoute,
+    AuthenticatedTransactionsLazyRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -96,22 +126,31 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/analytics",
-        "/create",
-        "/transactions"
+        "/_authenticated"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/analytics": {
-      "filePath": "analytics.lazy.tsx"
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/analytics",
+        "/_authenticated/create",
+        "/_authenticated/transactions"
+      ]
     },
-    "/create": {
-      "filePath": "create.lazy.tsx"
+    "/_authenticated/analytics": {
+      "filePath": "_authenticated/analytics.lazy.tsx",
+      "parent": "/_authenticated"
     },
-    "/transactions": {
-      "filePath": "transactions.lazy.tsx"
+    "/_authenticated/create": {
+      "filePath": "_authenticated/create.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/transactions": {
+      "filePath": "_authenticated/transactions.lazy.tsx",
+      "parent": "/_authenticated"
     }
   }
 }

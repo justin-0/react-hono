@@ -22,6 +22,10 @@ type Payload = {
 export const validateAndSetUser = createMiddleware<Env>(
   async (c: Context, next: Next) => {
     try {
+      if (c.var.user) {
+        return next();
+      }
+
       const sessionCookie = getCookie(c, "session");
 
       if (!sessionCookie) {

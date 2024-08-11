@@ -3,7 +3,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { CreateExpenseForm } from "@/components/forms/create-expense";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-export const Route = createLazyFileRoute("/create")({
+export const Route = createLazyFileRoute("/_authenticated/create")({
   component: Create,
 });
 
