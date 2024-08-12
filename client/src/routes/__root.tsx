@@ -1,11 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/stores/authStore";
+import { User, useUser } from "@/stores/authStore";
+import { UserDetails } from "@server/middleware";
 
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  Link,
+  Outlet,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Landmark, LogOutIcon } from "lucide-react";
 
-export const Route = createRootRoute({
+export interface MyRouteContext {
+  auth: UserDetails;
+}
+
+export const Route = createRootRouteWithContext<MyRouteContext>()({
   component: () => {
     const user = useUser();
     return (

@@ -1,6 +1,10 @@
 import { UserDetails } from "@server/middleware";
 import { create } from "zustand";
 
+export type User = {
+  user: null | { id: string; username: string };
+};
+
 type AuthStore = {
   user: null | UserDetails;
   actions: {

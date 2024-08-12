@@ -44,4 +44,4 @@
 - [] create transaction endpoint
 - [] rq - ensurequerydata, setquerydata, queryoptions
 - [] zustand - create a check auth method that hits new creatly endpoint
-- [] auth method should be used with \_authenticated beforeload function and then can redirect user to homepage
+- [x] auth method should be used with \_authenticated beforeload function and then can redirect user to homepage
